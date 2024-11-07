@@ -19,14 +19,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const rssUrl = 'https://trends.google.com/trending/rss?geo=PT';
+            const rssUrl = 'https://cors-anywhere.herokuapp.com/https://trends.google.com/trends/trendingsearches/daily/rss?geo=PT';
             fetch(rssUrl)
                 .then(response => response.text())
                 .then(str => new window.DOMParser().parseFromString(str, 'text/xml'))
                 .then(data => {
                     const items = data.querySelectorAll('item');
                     const trendingList = document.getElementById('trending-topics');
-                    for (let i = 0; i < 5; i++) {
+                    for (let i = 0; i < 5 && i < items.length; i++) {
                         const item = items[i];
                         const title = item.querySelector('title').textContent;
                         const link = item.querySelector('link').textContent;
